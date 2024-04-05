@@ -1,5 +1,5 @@
 import {Image, Pressable, Text, TouchableOpacity, View} from 'react-native';
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {productListStyle} from './style';
 import {Heart} from 'iconsax-react-native';
 import {COLORS} from '../../thema/colors';
@@ -11,7 +11,8 @@ import {StoreContext} from '../../context/provider';
 const ProductsListCard = ({item}) => {
   const navigation = useNavigation();
   const {productDetails} = SCREENS;
-  const {addProductToCart} = useContext(StoreContext);
+  const {addProductToCart, addProductToFavourites} = useContext(StoreContext);
+  const [isLiked, setIsLiked] = useState(false);
 
   return (
     <View style={productListStyle.container}>
@@ -37,8 +38,17 @@ const ProductsListCard = ({item}) => {
           <Text style={productListStyle.price}>{item.price} &euro;</Text>
         </View>
         <View style={productListStyle.favouriteIcon}>
-          <TouchableOpacity style={{paddingLeft: 10}}>
-            <Heart size="20" color={COLORS.black} variant="Outline" />
+          <TouchableOpacity
+            onPress={() => {
+              addProductToFavourites(item);
+              setIsLiked(!isLiked);
+            }}
+            style={{paddingLeft: 10}}>
+            <Heart
+              size="20"
+              color={isLiked ? COLORS.orange : COLORS.black}
+              variant={isLiked ? 'Bold' : 'Outline'}
+            />
           </TouchableOpacity>
         </View>
       </View>

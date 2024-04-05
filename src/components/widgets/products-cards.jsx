@@ -1,14 +1,17 @@
 import {Image, Pressable, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import {widgetProductsStyles} from './style';
 import {Heart} from 'iconsax-react-native';
 import {COLORS} from '../../thema/colors';
 import {useNavigation} from '@react-navigation/native';
 import {SCREENS} from '../../utils/routes';
+import { StoreContext } from '../../context/provider';
 
 const ProductsCards = ({item}) => {
   const navigation = useNavigation();
   const {productDetails} = SCREENS;
+  const {addProductToFavourites} = useContext(StoreContext);
+
   return (
     <Pressable
       onPress={() => navigation.navigate(productDetails, {item: item})}
@@ -31,7 +34,7 @@ const ProductsCards = ({item}) => {
           <Text style={widgetProductsStyles.price}>{item.price} &euro;</Text>
         </View>
         <View style={widgetProductsStyles.favouriteIcon}>
-          <TouchableOpacity style={{paddingLeft: 10}}>
+          <TouchableOpacity onPress={()=>addProductToFavourites(item)} style={{paddingLeft: 10}}>
             <Heart size="20" color={COLORS.black} variant="Outline" />
           </TouchableOpacity>
         </View>

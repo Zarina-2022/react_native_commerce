@@ -1,4 +1,4 @@
-import {FlatList, View} from 'react-native';
+import {FlatList, Pressable, Touchable, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {CATEGORIES_URL} from '../../api/urls';
 import {getRequest} from '../../api/http-requests';

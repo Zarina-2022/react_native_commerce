@@ -5,10 +5,12 @@ import {height} from '../../utils/constants';
 export const categoryCardStyle = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection:'row',
     backgroundColor: COLORS.lightGray,
     padding: 10,
     minHeight: height / 8,
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    alignItems:'center',
     marginVertical: 5,
   },
   text: {

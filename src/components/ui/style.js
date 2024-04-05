@@ -54,3 +54,37 @@ export const counterStyle = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+export const emptyListStyle = StyleSheet.create({
+  container: {
+    height: height * 0.7,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    paddingBottom: 10,
+    paddingHorizontal:40,
+  },
+  text1: {
+    textAlign: 'center',
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginVertical: 20,
+  },
+  text2: {
+    textAlign: 'center',
+    fontSize: 16,
+  },
+  btn: {
+    paddingVertical: 15,
+    width: width * 0.6,
+    marginTop: 50,
+    borderRadius: 5,
+    alignItems: 'center',
+    alignSelf: 'center',
+    backgroundColor: COLORS.orange,
+  },
+  btnText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: COLORS.white,
+  },
+});

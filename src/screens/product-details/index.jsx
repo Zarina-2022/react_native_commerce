@@ -30,7 +30,7 @@ const ProductDetails = ({route}) => {
   const {item} = route?.params;
   const [product, setProduct] = useState(null);
   const [pending, setPending] = useState(false);
-  const {addProductToCart} = useContext(StoreContext);
+  const {addProductToCart, addProductToFavourites} = useContext(StoreContext);
 
   useEffect(() => {
     setPending(true);
@@ -107,7 +107,9 @@ const ProductDetails = ({route}) => {
                 </View>
 
                 <View style={productDetailStyle.left}>
-                  <TouchableOpacity style={{paddingLeft: 10}}>
+                  <TouchableOpacity
+                    onPress={() => addProductToFavourites(item)}
+                    style={{paddingLeft: 10}}>
                     <Heart size="25" color={COLORS.black} variant="Outline" />
                   </TouchableOpacity>
                 </View>
