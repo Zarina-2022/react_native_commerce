@@ -1,4 +1,11 @@
-import {Image, Pressable, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Alert,
+  Image,
+  Pressable,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useContext, useState} from 'react';
 import {productListStyle} from './style';
 import {Heart} from 'iconsax-react-native';
@@ -10,9 +17,32 @@ import {StoreContext} from '../../context/provider';
 
 const ProductsListCard = ({item}) => {
   const navigation = useNavigation();
-  const {productDetails} = SCREENS;
-  const {addProductToCart, addProductToFavourites} = useContext(StoreContext);
+  const {productDetails, login} = SCREENS;
   const [isLiked, setIsLiked] = useState(false);
+  const {addProductToCart, addProductToFavourites, isLogin} =
+    useContext(StoreContext);
+
+  const isLoginTrue = () => {
+    if (isLogin) {
+      addProductToFavourites(item);
+    } else {
+      Alert.alert(
+        'Please, login',
+        'To add a product to favourites you must first login',
+        [
+          {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel pressed'),
+            style: 'cancel',
+          },
+          {
+            text: 'OK',
+            onPress: () => navigation.navigate(login),
+          },
+        ],
+      );
+    }
+  };
 
   return (
     <View style={productListStyle.container}>
@@ -40,8 +70,8 @@ const ProductsListCard = ({item}) => {
         <View style={productListStyle.favouriteIcon}>
           <TouchableOpacity
             onPress={() => {
-              addProductToFavourites(item);
-              setIsLiked(!isLiked);
+              isLoginTrue(); // add it to favorites
+              setIsLiked(!isLiked); // Toggle the like status
             }}
             style={{paddingLeft: 10}}>
             <Heart

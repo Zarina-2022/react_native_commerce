@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
+  Alert,
 } from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 
@@ -25,12 +26,18 @@ import {Heart, Star1} from 'iconsax-react-native';
 
 // context
 import {StoreContext} from '../../context/provider';
+import {SCREENS} from '../../utils/routes';
+import { useNavigation } from '@react-navigation/native';
 
 const ProductDetails = ({route}) => {
   const {item} = route?.params;
+  const {login} = SCREENS;
   const [product, setProduct] = useState(null);
   const [pending, setPending] = useState(false);
-  const {addProductToCart, addProductToFavourites} = useContext(StoreContext);
+  const {addProductToCart, addProductToFavourites, isLogin} =
+    useContext(StoreContext);
+  const [isLiked, setIsLiked] = useState(false);
+  const navigation = useNavigation()
 
   useEffect(() => {
     setPending(true);
@@ -45,6 +52,28 @@ const ProductDetails = ({route}) => {
         setPending(false);
       });
   }, []);
+
+  const isLoginTrue = () => {
+    if (isLogin) {
+      addProductToFavourites(item);
+    } else {
+      Alert.alert(
+        'Please, login',
+        'To add a product to favourites you must first login',
+        [
+          {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel pressed'),
+            style: 'cancel',
+          },
+          {
+            text: 'OK',
+            onPress: () => navigation.navigate(login),
+          },
+        ],
+      );
+    }
+  };
 
   return (
     <SafeAreaView style={productDetailStyle.container}>
@@ -108,9 +137,16 @@ const ProductDetails = ({route}) => {
 
                 <View style={productDetailStyle.left}>
                   <TouchableOpacity
-                    onPress={() => addProductToFavourites(item)}
+                    onPress={() => {
+                      isLoginTrue(); // add it to favorites
+                      setIsLiked(!isLiked); // Toggle the like status
+                    }}
                     style={{paddingLeft: 10}}>
-                    <Heart size="25" color={COLORS.black} variant="Outline" />
+                    <Heart
+                      size="20"
+                      color={isLiked ? COLORS.orange : COLORS.black}
+                      variant={isLiked ? 'Bold' : 'Outline'}
+                    />
                   </TouchableOpacity>
                 </View>
               </View>

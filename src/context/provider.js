@@ -16,10 +16,17 @@ export default function BadgeContextProvider({children}) {
     setFavourites([...favourites, product]);
   };
 
+  const addBadge = product => {
+    setBadge([...badge, product]);
+  };
+
+  
+
   return (
     <StoreContext.Provider
       value={{
         badge,
+        addBadge,
         addProductToCart,
         isLogin,
         setIsLogin,

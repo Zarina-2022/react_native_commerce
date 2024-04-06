@@ -22,7 +22,7 @@ const CartCard = ({item}) => {
           {item.title}
         </Text>
         <Text style={cartStyles.category}>{item.category}</Text>
-        <Text style={cartStyles.price}>{item.price} &euro;</Text>
+        <Text style={cartStyles.price}>${item.price} &euro;</Text>
       </View>
 
       <View style={cartStyles.container3}>

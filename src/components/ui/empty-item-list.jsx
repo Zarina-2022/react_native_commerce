@@ -1,24 +1,19 @@
 import {Text, TouchableOpacity, View} from 'react-native';
 import {emptyListStyle} from './style';
-import {HeartCircle} from 'iconsax-react-native';
-import {useNavigation} from '@react-navigation/native';
-import {SCREENS} from '../../utils/routes';
 
-const EmptyItemList = ({title1, title2, category}) => {
-  const navigation = useNavigation();
-  const {productList} = SCREENS;
+const EmptyItemList = ({title1, title2, btn, icon, onPress}) => {
 
   return (
     <View style={emptyListStyle.container}>
-      <HeartCircle size="295" color="#FF8A65" variant="Bulk" />
+      <View>{icon}</View>
 
       <Text style={emptyListStyle.text1}>{title1}</Text>
       <Text style={emptyListStyle.text2}>{title2}</Text>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate(productList, {category: category})}
+        onPress={onPress}
         style={emptyListStyle.btn}>
-        <Text style={emptyListStyle.btnText}>START EXPLORING</Text>
+        <Text style={emptyListStyle.btnText}>{btn}</Text>
       </TouchableOpacity>
     </View>
   );
