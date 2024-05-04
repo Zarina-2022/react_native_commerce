@@ -67,4 +67,4 @@ https://fakestoreapi.com/docs
 
 Screen gif:
 
-![](commerce-screen.gif)
+<img src="commerce-screen.gif" width="400">
